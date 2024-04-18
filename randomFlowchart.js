@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Generate nodes with random labels and store their identifiers
     for (let i = 1; i <= numNodes; i++) {
-        const label = `${getRandomWord()}$-{i}`;
+        const label = `${getRandomWord()}-${i}`;
         const shape = Math.random() > 0.5 ? "((%text%))" : "[%text%]";
         const nodeId = `A${i}`;
         nodeIdentifiers.push(nodeId);
