@@ -34,4 +34,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Update the inner HTML of the Mermaid div
     document.querySelector('.mermaid').innerHTML = mermaidText;
+
+    // Add a debug block to the page
+    var debugPre = document.createElement('pre');
+    debugPre.textContent = mermaidText;
+    document.body.appendChild(debugPre);
+    
 });
