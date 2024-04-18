@@ -1,32 +1,37 @@
 document.addEventListener("DOMContentLoaded", function () {
     const words = ["Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda", "Mu", "Nu", "Xi", "Omicron", "Pi", "Rho", "Sigma", "Tau", "Upsilon", "Phi", "Chi", "Psi", "Omega"];
-    const numNodes = Math.floor(Math.random() * 200) + 1;
+    const numNodes = Math.floor(Math.random() * 180) + 20; // Ensures between 20 and 200 nodes
     let mermaidText = "graph TD;\n";
+    let nodeIdentifiers = []; // Array to keep track of node identifiers
 
     // Helper function to generate random words
     function getRandomWord() {
         return words[Math.floor(Math.random() * words.length)];
     }
 
-    // Generate nodes with random labels
+    // Generate nodes with random labels and store their identifiers
     for (let i = 1; i <= numNodes; i++) {
+        const label = getRandomWord();
         const shape = Math.random() > 0.5 ? "((%text%))" : "[%text%]";
-        mermaidText += `A${i}${shape.replace("%text%", getRandomWord())};\n`;
+        const nodeId = `A${i}`;
+        nodeIdentifiers.push(nodeId);
+        mermaidText += `${nodeId}${shape.replace("%text%", label)};\n`;
     }
 
     // Generate links with random styles
     for (let i = 1; i < numNodes; i++) {
-        const nextNode = Math.floor(Math.random() * (numNodes - i)) + i + 1;
+        const nextNodeIndex = Math.floor(Math.random() * (numNodes - i)) + i;
         const linkStyle = Math.random() > 0.5 ? "-->" : "-.->";
-        mermaidText += `A${i} ${linkStyle} A${nextNode};\n`;
+        mermaidText += `${nodeIdentifiers[i - 1]} ${linkStyle} ${nodeIdentifiers[nextNodeIndex]};\n`;
     }
 
-    const lastThree = nodes.slice(-3); // Grab the last three nodes
-    const firstThree = nodes.slice(0, 3); // Grab the first three nodes
+    // Randomly link one of the last three nodes to one of the first three
+    const lastThree = nodeIdentifiers.slice(-3); // Grab the last three nodes
+    const firstThree = nodeIdentifiers.slice(0, 3); // Grab the first three nodes
     const randomLastNode = lastThree[Math.floor(Math.random() * lastThree.length)];
     const randomFirstNode = firstThree[Math.floor(Math.random() * firstThree.length)];
     mermaidText += `${randomLastNode} --> ${randomFirstNode};\n`;
-    
+
     // Update the inner HTML of the Mermaid div
     document.querySelector('.mermaid').innerHTML = mermaidText;
 });
