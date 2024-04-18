@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const words = ["Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda", "Mu", "Nu", "Xi", "Omicron", "Pi", "Rho", "Sigma", "Tau", "Upsilon", "Phi", "Chi", "Psi", "Omega"];
-    const numNodes = Math.floor(Math.random() * 80) + 20; // Ensures between 20 and 100 nodes
+    const numNodes = Math.floor(Math.random() * 50) + 20; // Ensures between 20 and 100 nodes
     let mermaidText = "graph TD;\n";
     let nodeIdentifiers = []; // Array to keep track of node identifiers
 
