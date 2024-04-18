@@ -29,11 +29,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const lastThree = nodeIdentifiers.slice(-3); // Grab the last three nodes
     const firstThree = nodeIdentifiers.slice(0, 3); // Grab the first three nodes
     //Doing this twice because I want to make this more spaghetti-ey
-    const randomLastNode = lastThree[Math.floor(Math.random() * lastThree.length)];
-    const randomFirstNode = firstThree[Math.floor(Math.random() * firstThree.length)];
+    let randomLastNode = lastThree[Math.floor(Math.random() * lastThree.length)];
+    let randomFirstNode = firstThree[Math.floor(Math.random() * firstThree.length)];
     mermaidText += `${randomLastNode} --> ${randomFirstNode};\n`;
-    const randomLastNode = lastThree[Math.floor(Math.random() * lastThree.length)];
-    const randomFirstNode = firstThree[Math.floor(Math.random() * firstThree.length)];
+    randomLastNode = lastThree[Math.floor(Math.random() * lastThree.length)];
+    randomFirstNode = firstThree[Math.floor(Math.random() * firstThree.length)];
     mermaidText += `${randomLastNode} --> ${randomFirstNode};\n`;
 
     // Update the inner HTML of the Mermaid div
