@@ -9,6 +9,24 @@ document.addEventListener("DOMContentLoaded", function () {
         return words[Math.floor(Math.random() * words.length)];
     }
 
+    function getRandomColor() {
+        return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+    }
+
+    function getComplementaryColor(hexColor) {
+        let rgb = parseInt(hexColor.slice(1), 16);
+        let r = (rgb >> 16) & 255;
+        let g = (rgb >> 8) & 255;
+        let b = rgb & 255;
+        r = 255 - r;
+        g = 255 - g;
+        b = 255 - b;
+        return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+    }
+
+    const baseColor = getRandomColor();
+    const complementaryColor = getComplementaryColor(baseColor);
+    
     // Generate nodes with random labels and store their identifiers
     for (let i = 1; i <= numNodes; i++) {
         const label = `${getRandomWord()}-${i}`;
@@ -23,6 +41,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const nextNodeIndex = Math.floor(Math.random() * (numNodes - i)) + i;
         const linkStyle = Math.random() > 0.5 ? "-->" : "-.->";
         mermaidText += `${nodeIdentifiers[i - 1]} ${linkStyle} ${nodeIdentifiers[nextNodeIndex]};\n`;
+                
+        const nodeColor = Math.random() > 0.5 ? baseColor : complementaryColor;
+        mermaidText += `style ${nodeId} fill:${nodeColor},stroke:${nodeColor};\n`;
+        
     }
 
     // Randomly link one of the last three nodes to one of the first three
