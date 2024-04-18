@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const words = ["Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda", "Mu", "Nu", "Xi", "Omicron", "Pi", "Rho", "Sigma", "Tau", "Upsilon", "Phi", "Chi", "Psi", "Omega"];
-    const numNodes = Math.floor(Math.random() * 180) + 20; // Ensures between 20 and 200 nodes
+    const numNodes = Math.floor(Math.random() * 80) + 20; // Ensures between 20 and 100 nodes
     let mermaidText = "graph TD;\n";
     let nodeIdentifiers = []; // Array to keep track of node identifiers
 
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Generate nodes with random labels and store their identifiers
     for (let i = 1; i <= numNodes; i++) {
-        const label = `${getRandomWord()}${i}`;
+        const label = `${getRandomWord()}$-{i}`;
         const shape = Math.random() > 0.5 ? "((%text%))" : "[%text%]";
         const nodeId = `A${i}`;
         nodeIdentifiers.push(nodeId);
