@@ -34,6 +34,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const nodeId = `A${i}`;
         nodeIdentifiers.push(nodeId);
         mermaidText += `${nodeId}${shape.replace("%text%", label)};\n`;
+        // Make the nodes random colours
+        const nodeColor = math.Random() > 0.5 ? baseColor : complementaryColor;
+        mermaidText += `style ${nodeId} fill:${nodeColor},stroke:${nodeColor};\n`;
     }
 
     // Generate links with random styles
@@ -43,10 +46,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const nodeId = `A${i}`;
         nodeIdentifiers.push(nodeId);
         mermaidText += `${nodeId}${shape.replace("%text%", label)};\n`;
-
-        // Apply a random color to this node
-        const nodeColor = Math.random() > 0.5 ? baseColor : complementaryColor;
-        mermaidText += `style ${nodeId} fill:${nodeColor},stroke:${nodeColor};\n`;
     }
     
     // Randomly link one of the last three nodes to one of the first three
