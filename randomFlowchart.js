@@ -21,6 +21,12 @@ document.addEventListener("DOMContentLoaded", function () {
         mermaidText += `A${i} ${linkStyle} A${nextNode};\n`;
     }
 
+    const lastThree = nodes.slice(-3); // Grab the last three nodes
+    const firstThree = nodes.slice(0, 3); // Grab the first three nodes
+    const randomLastNode = lastThree[Math.floor(Math.random() * lastThree.length)];
+    const randomFirstNode = firstThree[Math.floor(Math.random() * firstThree.length)];
+    mermaidText += `${randomLastNode} --> ${randomFirstNode};\n`;
+    
     // Update the inner HTML of the Mermaid div
     document.querySelector('.mermaid').innerHTML = mermaidText;
 });
