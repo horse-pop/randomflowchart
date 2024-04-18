@@ -37,16 +37,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Generate links with random styles
-    for (let i = 1; i < numNodes; i++) {
-        const nextNodeIndex = Math.floor(Math.random() * (numNodes - i)) + i;
-        const linkStyle = Math.random() > 0.5 ? "-->" : "-.->";
-        mermaidText += `${nodeIdentifiers[i - 1]} ${linkStyle} ${nodeIdentifiers[nextNodeIndex]};\n`;
-                
+    for (let i = 1; i <= numNodes; i++) {
+        const label = `${getRandomWord()}-${i}`;
+        const shape = Math.random() > 0.5 ? "((%text%))" : "[%text%]";
+        const nodeId = `A${i}`;
+        nodeIdentifiers.push(nodeId);
+        mermaidText += `${nodeId}${shape.replace("%text%", label)};\n`;
+
+        // Apply a random color to this node
         const nodeColor = Math.random() > 0.5 ? baseColor : complementaryColor;
         mermaidText += `style ${nodeId} fill:${nodeColor},stroke:${nodeColor};\n`;
-        
     }
-
+    
     // Randomly link one of the last three nodes to one of the first three
     const lastThree = nodeIdentifiers.slice(-3); // Grab the last three nodes
     const firstThree = nodeIdentifiers.slice(0, 3); // Grab the first three nodes
