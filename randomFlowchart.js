@@ -28,6 +28,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Randomly link one of the last three nodes to one of the first three
     const lastThree = nodeIdentifiers.slice(-3); // Grab the last three nodes
     const firstThree = nodeIdentifiers.slice(0, 3); // Grab the first three nodes
+    //Doing this twice because I want to make this more spaghetti-ey
+    const randomLastNode = lastThree[Math.floor(Math.random() * lastThree.length)];
+    const randomFirstNode = firstThree[Math.floor(Math.random() * firstThree.length)];
+    mermaidText += `${randomLastNode} --> ${randomFirstNode};\n`;
     const randomLastNode = lastThree[Math.floor(Math.random() * lastThree.length)];
     const randomFirstNode = firstThree[Math.floor(Math.random() * firstThree.length)];
     mermaidText += `${randomLastNode} --> ${randomFirstNode};\n`;
