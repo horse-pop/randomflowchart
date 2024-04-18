@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
         nodeIdentifiers.push(nodeId);
         mermaidText += `${nodeId}${shape.replace("%text%", label)};\n`;
         // Make the nodes random colours
-        const nodeColor = Math.Random() > 0.5 ? baseColor : complementaryColor;
+        const nodeColor = Math.random() > 0.5 ? baseColor : complementaryColor;
         mermaidText += `style ${nodeId} fill:${nodeColor},stroke:${nodeColor};\n`;
     }
 
