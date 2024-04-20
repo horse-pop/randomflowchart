@@ -31,14 +31,32 @@ document.addEventListener("DOMContentLoaded", function () {
     const baseColor = getRandomColor();
     const complementaryColor = getComplementaryColor(baseColor);
 
+    const shapes = [
+        "((%text%))",
+        "[%text%]",
+        "([%text%])",
+        "[[%text%]]",
+        "[(%text%)]",
+        ">%text%",
+        "{%text%}",
+        "[/%text%/]",
+        "{{%text%}}",
+        "(((%text%)))"
+    ];
+
+    function getRandomShape(text) {
+        const randomIndex = Math.floor(Math.random() * shapes.length);
+        return shapes[randomIndex].replace("%text%", text);
+    }
+
     // Generate nodes with random labels and store their identifiers
     for (let i = 1; i <= numNodes; i++) {
         const label = `${getRandomWord()}-${i}`;
-        const shape = Math.random() > 0.5 ? "((%text%))" : "[%text%]";
+        const shape = getRandomShape(label);
         const nodeId = `A${i}`;
         nodeIdentifiers.push(nodeId);
         const nodeColor = Math.random() > 0.5 ? baseColor : complementaryColor;
-        mermaidText += `${nodeId}${shape.replace("%text%", label)};\n`;
+        mermaidText += `${nodeId}${shape};\n`;
         mermaidText += generateStyles(nodeId, nodeColor);
     }
 
