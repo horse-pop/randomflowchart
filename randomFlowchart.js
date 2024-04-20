@@ -37,12 +37,11 @@ document.addEventListener("DOMContentLoaded", function () {
         "([%text%])",
         "[[%text%]]",
         "[(%text%)]",
-        ">%text%]"
-//        ,
-//        "{%text%}",
-//        "[/%text%/]",
-//        "{{%text%}}",
-//        "(((%text%)))"
+        ">%text%]",
+        "{%text%}",
+        "[/%text%/]",
+        "{{%text%}}",
+        "(((%text%)))"
     ];
 
     function getRandomShape(text) {
