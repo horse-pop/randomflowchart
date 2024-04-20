@@ -24,40 +24,39 @@ document.addEventListener("DOMContentLoaded", function () {
         return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
     }
 
+    function generateStyles(nodeId, color) {
+        return `style ${nodeId} fill:${color},stroke:${color};\n`;
+    }
+
     const baseColor = getRandomColor();
     const complementaryColor = getComplementaryColor(baseColor);
-    
+
     // Generate nodes with random labels and store their identifiers
     for (let i = 1; i <= numNodes; i++) {
         const label = `${getRandomWord()}-${i}`;
         const shape = Math.random() > 0.5 ? "((%text%))" : "[%text%]";
         const nodeId = `A${i}`;
         nodeIdentifiers.push(nodeId);
-        mermaidText += `${nodeId}${shape.replace("%text%", label)};\n`;
-        // Make the nodes random colours
         const nodeColor = Math.random() > 0.5 ? baseColor : complementaryColor;
-        mermaidText += `style ${nodeId} fill:${nodeColor},stroke:${nodeColor};\n`;
+        mermaidText += `${nodeId}${shape.replace("%text%", label)};\n`;
+        mermaidText += generateStyles(nodeId, nodeColor);
     }
 
     // Generate links with random styles
-    for (let i = 1; i <= numNodes; i++) {
-        const label = `${getRandomWord()}-${i}`;
-        const shape = Math.random() > 0.5 ? "((%text%))" : "[%text%]";
-        const nodeId = `A${i}`;
-        nodeIdentifiers.push(nodeId);
-        mermaidText += `${nodeId}${shape.replace("%text%", label)};\n`;
+    for (let i = 1; i < numNodes; i++) {
+        const nextNodeIndex = Math.floor(Math.random() * (numNodes - i)) + i;
+        const linkStyle = Math.random() > 0.5 ? "-->" : "-.->";
+        mermaidText += `${nodeIdentifiers[i - 1]} ${linkStyle} ${nodeIdentifiers[nextNodeIndex]};\n`;
     }
-    
-    // Randomly link one of the last three nodes to one of the first three
-    const lastThree = nodeIdentifiers.slice(-3); // Grab the last three nodes
-    const firstThree = nodeIdentifiers.slice(0, 3); // Grab the first three nodes
-    //Doing this twice because I want to make this more spaghetti-ey
-    let randomLastNode = lastThree[Math.floor(Math.random() * lastThree.length)];
-    let randomFirstNode = firstThree[Math.floor(Math.random() * firstThree.length)];
-    mermaidText += `${randomLastNode} --> ${randomFirstNode};\n`;
-    randomLastNode = lastThree[Math.floor(Math.random() * lastThree.length)];
-    randomFirstNode = firstThree[Math.floor(Math.random() * firstThree.length)];
-    mermaidText += `${randomLastNode} --> ${randomFirstNode};\n`;
+
+    // Randomly link one of the last three nodes to one of the first three, twice
+    const lastThree = nodeIdentifiers.slice(-3);
+    const firstThree = nodeIdentifiers.slice(0, 3);
+    for (let j = 0; j < 2; j++) {
+        let randomLastNode = lastThree[Math.floor(Math.random() * lastThree.length)];
+        let randomFirstNode = firstThree[Math.floor(Math.random() * firstThree.length)];
+        mermaidText += `${randomLastNode} --> ${randomFirstNode};\n`;
+    }
 
     // Update the inner HTML of the Mermaid div
     document.querySelector('.mermaid').innerHTML = mermaidText;
@@ -66,5 +65,5 @@ document.addEventListener("DOMContentLoaded", function () {
     var debugPre = document.createElement('pre');
     debugPre.textContent = mermaidText;
     document.body.appendChild(debugPre);
-    
+
 });
